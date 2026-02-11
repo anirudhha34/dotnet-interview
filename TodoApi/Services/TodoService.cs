@@ -26,11 +26,13 @@ namespace TodoApi.Services
             var id = Convert.ToInt32(command.ExecuteScalar());
             todo.Id = id;
             todo.CreatedAt = DateTime.UtcNow;
+            Console.WriteLine($"Todo created with ID: {id}");
             return todo;
         }
 
         public List<Todo> GetAllTodos()
         {
+            Console.WriteLine("Fetching all todos from the database");
             var todos = new List<Todo>();
             using var connection = new SqliteConnection(_connectionString);
             connection.Open();
@@ -56,6 +58,7 @@ namespace TodoApi.Services
 
         public Todo GetTodoById(int id)
         {
+            Console.WriteLine($"Fetching todo with ID: {id} from the database");
             using var connection = new SqliteConnection(_connectionString);
             connection.Open();
 
@@ -93,11 +96,13 @@ namespace TodoApi.Services
             var rowsAffected = command.ExecuteNonQuery();
 
             todo.Id = id;
+            Console.WriteLine($"Todo with ID: {id} updated successfully, Rows affected: {rowsAffected}");
             return todo;
         }
 
         public bool DeleteTodo(int id)
         {
+            Console.WriteLine($"Deleting todo with ID: {id} from the database");
             using var connection = new SqliteConnection(_connectionString);
             connection.Open();
 
